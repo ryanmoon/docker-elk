@@ -10,9 +10,11 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      ES_JAVA_OPTS: "-Xms512m -Xmx2g"
+      ES_JAVA_OPTS: "-Xms2g -Xmx4g"
     networks:
       - elk
+    volumes:
+        - /usr/local/docker/elk:/usr/share/elasticsearch/data
 
   logstash:
     build: logstash/
@@ -22,7 +24,7 @@ services:
     ports:
       - "5044:5044"
     environment:
-      LS_JAVA_OPTS: "-Xmx1g -Xms256m"
+      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
     networks:
       - elk
     depends_on:
